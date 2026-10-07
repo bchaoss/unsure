@@ -126,6 +126,22 @@ void main() {
       expect(formula.emit(), 42000000);
     });
 
+    test('parses B', () {
+      var formula = parser.parseString('42B');
+
+      expect(formula.emit, returnsNormally);
+      expect(formula.isStochastic, isFalse);
+      expect(formula.emit(), 42000000000);
+    });
+
+    test('parses T', () {
+      var formula = parser.parseString('42T');
+
+      expect(formula.emit, returnsNormally);
+      expect(formula.isStochastic, isFalse);
+      expect(formula.emit(), 42000000000000);
+    });
+
     test('postfixes have meaningful precedence', () {
       var formula = parser.parseString('42K * -10%');
 
