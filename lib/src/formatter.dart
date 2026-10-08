@@ -8,6 +8,31 @@ final RegExp _continuousDecimals = RegExp(r'\d+');
 /// top to bottom, and tries each precision until it finds a good match.
 final _precisions = <_Precision>[
   _Precision(
+    '350T',
+    (n) => _quantize(n / 1000000000000, 50) + 'T',
+    (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000000,
+  ),
+  _Precision(
+    '340T',
+    (n) => _quantize(n / 1000000000000, 10) + 'T',
+    (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000000,
+  ),
+  _Precision(
+    '345T',
+    (n) => _quantize(n / 1000000000000, 5) + 'T',
+    (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000000,
+  ),
+  _Precision(
+    '5T',
+    (n) => _divide(n, 1000000000000) + 'T',
+    (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000000,
+  ),
+  _Precision(
+    '4.2T',
+    (n) => (n / 1000000000000).toStringAsFixed(1) + 'T',
+    (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000000,
+  ),
+  _Precision(
     '350B',
     (n) => _quantize(n / 1000000000, 50) + 'B',
     (s) => double.parse(s.substring(0, s.length - 1)) * 1000000000,
