@@ -19,4 +19,17 @@ void main() {
     expect(() => result = calculation.run(), returnsNormally);
     expect(result.isInvalid, isTrue);
   });
+
+  test('handles identical zero results', () {
+    var parser = FormulaParser();
+    var formula = parser.parseString('0 * 2~3');
+    var calculation = Calculation(formula.emit, iterations: 1000);
+
+    var result = calculation.run();
+    var histogram = result.histogram!;
+
+    expect(histogram.lowerBound, 0);
+    expect(histogram.counts[histogram.bandCount ~/ 2], 1000);
+    expect(() => histogram.toString(), returnsNormally);
+  });
 }

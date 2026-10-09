@@ -59,8 +59,10 @@ class ProbabilityHistogram {
         {String? trailing, String char = '▒'}) {
       buf.write(label.padLeft(10));
       buf.write(' | ');
-      for (var i = 0; i < (count / maxCount * maxSize); i++) {
-        buf.write(char);
+      if (maxCount > 0) {
+        for (var i = 0; i < (count / maxCount * maxSize); i++) {
+          buf.write(char);
+        }
       }
       if (trailing != null) {
         buf.write(trailing);
