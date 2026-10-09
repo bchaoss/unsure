@@ -105,10 +105,21 @@ class Calculation {
     var belowLower = 0;
     var aboveUpper = 0;
 
+    double? firstResult;
+    var allSame = true;
+
     for (final n in results) {
       if (!n.isFinite) {
         // Just ignore NaNs and infinities.
         continue;
+      }
+
+      if (allSame) {
+        if (firstResult == null) {
+          firstResult = n;
+        } else if (n != firstResult) {
+          allSame = false;
+        }
       }
 
       if (n < lower) {
@@ -123,6 +134,23 @@ class Calculation {
 
       final band = (n - lower) ~/ bandSize;
       occurrences[band]++;
+    }
+
+    // If all results are the same, put them in the middle band.
+    if (allSame && firstResult != null) {
+      // All valid counts.
+      occurrences[bandsCount ~/ 2] =
+          belowLower + aboveUpper + occurrences.reduce((a, b) => a + b);
+      return ProbabilityHistogram(
+        firstResult,
+        firstResult,
+        firstResult,
+        0,
+        bandsCount,
+        occurrences,
+        0,
+        0,
+      );
     }
 
     return ProbabilityHistogram(lower, median, upper, bandSize, bandsCount,
