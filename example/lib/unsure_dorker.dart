@@ -1,6 +1,6 @@
 import 'package:dorker/dorker.dart';
 import 'package:unsure/unsure.dart';
-import 'package:unsure_angular_dart/unsure_result_message.dart';
+import 'package:unsure_web/unsure_result_message.dart';
 
 class UnsureDorker {
   final Dorker _dorker;

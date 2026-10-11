@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:dorker/dorker.dart';
-import 'package:unsure_angular_dart/unsure_result_message.dart';
+import 'package:unsure_web/unsure_result_message.dart';
 
 @Component(
   selector: 'unsure-calc',
