@@ -105,12 +105,17 @@ class FormulaParser {
     });
 
     // The % postfix (just divides by 100).
+    // The K, M, B, T postfixes (multiply by corresponding units).
     builder.group()
       ..postfix(char('%').trim(), (a, op) => ConstantMultipleNode(a, 1 / 100))
       ..postfix(stringIgnoreCase('K').trim(),
           (a, op) => ConstantMultipleNode(a, 1000))
       ..postfix(stringIgnoreCase('M').trim(),
-          (a, op) => ConstantMultipleNode(a, 1000000));
+          (a, op) => ConstantMultipleNode(a, 1000000))
+      ..postfix(stringIgnoreCase('B').trim(),
+          (a, op) => ConstantMultipleNode(a, 1000000000))
+      ..postfix(stringIgnoreCase('T').trim(),
+          (a, op) => ConstantMultipleNode(a, 1000000000000));
 
     // TODO: add a +- parser
 

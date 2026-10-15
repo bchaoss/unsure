@@ -94,6 +94,27 @@ void main() {
     expect(formatter.format(5300000000), '5.3B');
   });
 
+  test('1000000000000 and 5300000000000', () {
+    var formatter = Formatter([1000000000000, 5300000000000]);
+
+    expect(formatter.format(1000000000000), '1.0T');
+    expect(formatter.format(5300000000000), '5.3T');
+  });
+
+  test('10T and 20T', () {
+    var formatter = Formatter([10000000000000, 20000000000000]);
+
+    expect(formatter.format(10000000000000), '10T');
+    expect(formatter.format(20000000000000), '20T');
+  });
+
+  test('1000000000000 and 1001000000000 become 1,000B and 1,001B', () {
+    var formatter = Formatter([1000000000000, 1001000000000]);
+
+    expect(formatter.format(1000000000000), '1,000B');
+    expect(formatter.format(1001000000000), '1,001B');
+  });
+
   test('0.000001 and 0.00000002 and 5300000000 (default)', () {
     var formatter = Formatter([0.000001, 0.00000002, 5300000000]);
 
