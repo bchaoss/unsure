@@ -1,6 +1,5 @@
-import 'package:angular/angular.dart';
-import 'package:unsure_angular_dart/app_component.template.dart' as ng;
+import 'app_component/app_component.dart';
 
 void main() {
-  runApp(ng.AppComponentNgFactory);
+  AppComponent().init();
 }
