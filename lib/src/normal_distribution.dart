@@ -18,7 +18,7 @@ class NormalDistribution {
       : assert(
             minimum < maximum,
             'Minimum must be lower than maximum: '
-            'minimumum=$minimum, maximum=$maximum'),
+            'minimum=$minimum, maximum=$maximum'),
         // In normal distribution, the mean is simply half-way between
         // the minimum and the maximum.
         mean = minimum + (maximum - minimum) / 2,

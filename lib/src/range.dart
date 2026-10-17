@@ -19,7 +19,7 @@ class Range {
       : assert(
             minimum < maximum,
             'Minimum must be lower than maximum: '
-            'minimumum=$minimum, maximum=$maximum'),
+            'minimum=$minimum, maximum=$maximum'),
         distance = maximum - minimum,
         _random = random ?? _reusableRandom;
 
