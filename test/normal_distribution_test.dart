@@ -16,6 +16,15 @@ void main() {
       expect(occurrences[5]!, greaterThan(occurrences[9]!));
       expect(occurrences[4]!, closeTo(occurrences[6]!, n / 100));
     });
+
+    test('fromBounds builds normal distribution', () {
+      final distribution = NormalDistribution.fromBounds(2, 10);
+
+      expect(distribution.minimum, 2);
+      expect(distribution.maximum, 10);
+      expect(distribution.mean, 6);
+      expect(distribution.standardDeviation, 2);
+    });
   });
 }
 

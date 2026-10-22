@@ -64,7 +64,8 @@ class FormulaParser {
           (op, a) => NegativeNode(a),
         );
 
-    // The range operator is left associative and very high-priority.
+    // The range operator ~ is left associative and very high-priority.
+    // The default distribution is normal.
     builder.group().left<String>(char('~').trim(), (a, op, b) {
       if (a.isStochastic) {
         throw ArgumentError('Cannot create a range with stochastic start: $a');
@@ -79,19 +80,20 @@ class FormulaParser {
             'the value $aValue.');
         return NumberNode(aValue);
       }
-      final range = Range(aValue, bValue, random: random);
-      return RangeNode(range);
+      final ndist =
+          NormalDistribution.fromBounds(aValue, bValue, random: random);
+      return NormalDistributionNode(ndist);
     });
 
-    // The normal distribution operator is left associative
+    // The +- normal distribution operator is left associative
     // and very high-priority. Example: 10+-2
     builder.group().left<String>(
         [string('+-'), char('±')].toChoiceParser().trim(), (a, op, b) {
       if (a.isStochastic) {
-        throw ArgumentError('Cannot create a range with stochastic start: $a');
+        throw ArgumentError('Cannot create a range with stochastic mean: $a');
       }
       if (b.isStochastic) {
-        throw ArgumentError('Cannot create a range with stochastic end: $b');
+        throw ArgumentError('Cannot create a range with stochastic distance: $b');
       }
       final aValue = a.emit();
       final bValue = b.emit();
@@ -116,8 +118,6 @@ class FormulaParser {
           (a, op) => ConstantMultipleNode(a, 1000000000))
       ..postfix(stringIgnoreCase('T').trim(),
           (a, op) => ConstantMultipleNode(a, 1000000000000));
-
-    // TODO: add a +- parser
 
     // Math functions.
     // TODO: take more from Excel / Google Spreadsheets: MOD(), POWER(),

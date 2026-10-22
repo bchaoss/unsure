@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Restore normal distribution as the default for `x~y`.
+
 ## 0.4.0
 
 - BRAKING: `x~y` (read: range from `x` to `y`) now means 

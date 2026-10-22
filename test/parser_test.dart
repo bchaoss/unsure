@@ -57,6 +57,22 @@ void main() {
       expect(a, closeTo(1000, 20));
     });
 
+    test('parses ~ as normal distribution by default', () {
+      var formula = parser.parseString('10~30');
+
+      expect(formula.isStochastic, isTrue);
+      expect(formula.rootNode, isA<NormalDistributionNode>());
+
+      final distribution = (formula.rootNode as NormalDistributionNode).range;
+      expect(distribution.minimum, 10);
+      expect(distribution.maximum, 30);
+      expect(distribution.mean, 20);
+      expect(distribution.standardDeviation, 5);
+
+      var a = formula.emit();
+      expect(a, closeTo(20, 40));
+    });
+
     test('parses Python-style exponentiation', () {
       var formula = parser.parseString('3**2');
 
