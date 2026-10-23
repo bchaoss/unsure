@@ -30,8 +30,14 @@ class NormalDistribution {
     _iterator = generate().iterator;
   }
 
+  /// Creates from mean and distance.
   NormalDistribution(double value, double distance, {Random? random})
     : this._(value - distance, value + distance, random: random);
+
+  /// Creates from bound range.
+  NormalDistribution.fromBounds(double minimum, double maximum,
+      {Random? random})
+      : this._(minimum, maximum, random: random);
 
   double get variance => standardDeviation * standardDeviation;
 
